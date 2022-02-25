@@ -7,6 +7,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 
 import com.teb.training.ee.cdi.interceptor.Caller;
+import com.teb.training.ee.cdi.interceptor.CheckRole;
 import com.teb.training.ee.cdi.interceptor.DeltaLog;
 
 @Path("/cdi")
@@ -22,6 +23,7 @@ public class CDIRest {
 
     @Path("/hello/{abc}/{xyz}")
     @GET
+    @CheckRole("USER")
     public String hello(@PathParam("abc") final String name,
                         @PathParam("xyz") final String surname) {
         return this.hello.hello(name,
@@ -31,6 +33,7 @@ public class CDIRest {
     @Path("/greet/{abc}")
     @GET
     @DeltaLog
+    @CheckRole("VIEW")
     public String greetXYZ(@PathParam("abc") final String name) {
         return this.caller.greet(name);
     }

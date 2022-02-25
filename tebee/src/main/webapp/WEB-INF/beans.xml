@@ -5,4 +5,7 @@
  <alternatives>
   <class>com.teb.training.ee.cdi.HelloTr</class>
  </alternatives>
+ <interceptors>
+  <class>com.teb.training.ee.cdi.interceptor.MySecurityCheck</class>
+ </interceptors>
 </beans>
