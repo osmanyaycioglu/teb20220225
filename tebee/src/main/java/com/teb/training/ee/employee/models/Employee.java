@@ -6,18 +6,28 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.TableGenerator;
+import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 
 import com.teb.training.ee.rest.models.EGender;
 
 @Entity
+@TableGenerator(table = "id_generator",
+                name = "gen_employee_id",
+                pkColumnName = "gen_type",
+                pkColumnValue = "employee",
+                valueColumnName = "gen_id",
+                initialValue = 0,
+                allocationSize = 1)
 public class Employee {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "gen_employee_id")
     private Long               empId;
     private String             name;
     private String             surname;
@@ -31,6 +41,9 @@ public class Employee {
     //    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "employee")
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Phone> phones;
+
+    @Version
+    private Long       xyz;
 
 
     public Long getEmpId() {
@@ -104,6 +117,16 @@ public class Employee {
 
     public void setGender(final EGender genderParam) {
         this.gender = genderParam;
+    }
+
+
+    public Set<Phone> getPhones() {
+        return this.phones;
+    }
+
+
+    public void setPhones(final Set<Phone> phonesParam) {
+        this.phones = phonesParam;
     }
 
 

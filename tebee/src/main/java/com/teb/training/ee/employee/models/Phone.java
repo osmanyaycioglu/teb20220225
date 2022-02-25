@@ -4,13 +4,22 @@ import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.TableGenerator;
 
 @Entity
+@TableGenerator(table = "id_generator",
+                name = "gen_phone_id",
+                pkColumnName = "gen_type",
+                pkColumnValue = "phone",
+                valueColumnName = "gen_id",
+                initialValue = 0,
+                allocationSize = 1)
 public class Phone {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "gen_phone_id")
     private Long   phoneId;
     private String phoneName;
     private String number;

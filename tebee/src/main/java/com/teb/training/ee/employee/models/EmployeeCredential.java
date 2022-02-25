@@ -4,15 +4,25 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.TableGenerator;
 
 @Entity
+@TableGenerator(table = "id_generator",
+                name = "gen_employeecred_id",
+                pkColumnName = "gen_type",
+                pkColumnValue = "employeecred",
+                valueColumnName = "gen_id",
+                initialValue = 0,
+                allocationSize = 1)
+
 public class EmployeeCredential {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "gen_employeecred_id")
     private Long     empCreId;
     private String   username;
     private String   password;
@@ -42,6 +52,14 @@ public class EmployeeCredential {
 
     public void setPassword(final String passwordParam) {
         this.password = passwordParam;
+    }
+
+    public Employee getEmployee() {
+        return this.employee;
+    }
+
+    public void setEmployee(final Employee employeeParam) {
+        this.employee = employeeParam;
     }
 
 

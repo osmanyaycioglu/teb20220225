@@ -1,4 +1,4 @@
-package com.teb.training.ee.employee.services;
+package com.teb.training.ee.employee.data;
 
 import java.util.List;
 
@@ -21,6 +21,7 @@ public class EmployeeDao {
 
     //    @Transactional
     //    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    // @Transactional(dontRollbackOn = NullPointerException.class)
     public void insert(final Employee employeeParam) {
         this.em.persist(employeeParam); // managed
     }
@@ -36,6 +37,18 @@ public class EmployeeDao {
                                     name);
         List<Employee> resultListLoc = createQueryLoc.getResultList();
         return resultListLoc;
+    }
+
+    public List<Employee> getAll() {
+        TypedQuery<Employee> createQueryLoc = this.em.createQuery("select e from Employee e",
+                                                                  Employee.class);
+        List<Employee> resultListLoc = createQueryLoc.getResultList();
+        return resultListLoc;
+    }
+
+    public Employee getById(final Long empId) {
+        return this.em.find(Employee.class,
+                            empId);
     }
 
     public List<Employee> getByNameNative(final String name) {
