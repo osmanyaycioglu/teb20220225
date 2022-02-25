@@ -1,0 +1,9 @@
+username,name,surname,age,height,active
+osmanyay,osman,yay,50,200,1
+
+Map<String /*username*/,Customer> aktif müşteriler
+-------------------------------------
+yaşı 40 altında ve 170 üstündeki -> List<Customer>
+--------------------------------------
+Boyu 180 üstünde ve yaşı 30 üstünde olanları sort ederek bir listeye at
+
